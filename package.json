@@ -1,9 +1,10 @@
 {
-  "name": "hello_world",
-  "description": "A template for a ts/sass web app, with polyfills and a CSS reset",
-  "repository": "https://github.com/Aloso/hello_world.git",
+  "name": "skilltree",
+  "description": "Create beautiful skill tree for managing long-term goals",
+  "repository": "https://github.com/Aloso/skilltree.git",
   "keywords": [
-    "hello_world"
+    "skilltree",
+    "Rust"
   ],
   "author": "Ludwig Stecher <ludwig.stecher@gmx.de>",
   "version": "1.0.0",
