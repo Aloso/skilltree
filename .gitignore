@@ -1,0 +1,16 @@
+*.log
+.cache
+.directory
+tmp/
+
+*.iml
+.idea/
+.vscode/
+
+node_modules/
+dist/
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+*.js.map

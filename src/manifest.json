@@ -1,0 +1,9 @@
+{
+  "name": "Hello world!",
+  "short_name": "Hello world",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color" : "#fff" ,
+  "description": "",
+  "icons": []
+}
