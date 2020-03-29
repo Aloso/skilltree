@@ -29,7 +29,7 @@ module.exports = {
             'off',
             { accessibility: 'explicit' }
         ],
-        '@typescript-eslint/indent': 'error',
+        '@typescript-eslint/indent': ['error', 2],
         '@typescript-eslint/interface-name-prefix': 'off',
         '@typescript-eslint/member-delimiter-style': [
             'error',
@@ -145,7 +145,7 @@ module.exports = {
         'no-var': 'error',
         'object-shorthand': 'error',
         'one-var': ['error', 'never'],
-        'prefer-arrow/prefer-arrow-functions': 'error',
+        'prefer-arrow/prefer-arrow-functions': 'off',
         'prefer-const': 'error',
         '@typescript-eslint/prefer-readonly': 'error',
         'radix': 'error',

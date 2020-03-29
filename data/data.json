@@ -1,0 +1,432 @@
+{
+  "canvas": {
+    "width": 1470,
+    "height": 710
+  },
+  "nodes": {
+    "n01": {
+      "type": "list",
+      "width": 350,
+      "x": 15,
+      "y": 15,
+      "title": "Map chalk types to rustc types",
+      "children": {
+        "i01": {
+          "label": "Rename Projection to Alias",
+          "status": "complete"
+        },
+        "i02": {
+          "label": "Make ty intern method take &self",
+          "status": "complete",
+          "href": "https://github.com/rust-lang/chalk/issues/328"
+        },
+        "i03": {
+          "label": "Make ty data methods take &self",
+          "status": "assigned",
+          "href": "https://github.com/rust-lang/chalk/issues/339"
+        },
+        "i04": {
+          "label": "Make other intern method take &self",
+          "status": "complete",
+          "href": "https://github.com/rust-lang-nursery/chalk/issues/340"
+        },
+        "i05": {
+          "label": "Make other data methods take &self",
+          "status": "assigned",
+          "href": "https://github.com/rust-lang/chalk/issues/341"
+        },
+        "i06": {
+          "label": "Align placeholders and ty::Param",
+          "status": "blocked"
+        },
+        "i07": {
+          "label": "Move Identifier to TypeFamily",
+          "status": "complete"
+        },
+        "i08": {
+          "label": "Adapt rustc's debruijn index model",
+          "status": "assigned",
+          "href": "https://github.com/rust-lang/chalk/issues/334"
+        },
+        "i09": {
+          "label": "Adapt rustc's representation of regions",
+          "status": "blocked"
+        },
+        "i10": {
+          "label": "Remove all vectors, boxes",
+          "status": "unassigned"
+        },
+        "i11": {
+          "label": "Introduce a `Visit` trait",
+          "status": "unassigned",
+          "href": "https://github.com/rust-lang/chalk/issues/333"
+        },
+        "i12": {
+          "label": "Add and integrate flags into types and elsewhere",
+          "status": "unassigned"
+        }
+      }
+    },
+    "n02": {
+      "type": "list",
+      "width": 350,
+      "x": 15,
+      "y": 450,
+      "title": "Experiment with a recursive chalk solver",
+      "children": {
+        "i13": {
+          "label": "Write-up the idea that Niko had",
+          "status": "complete",
+          "href": "https://gist.github.com/nikomatsakis/bfbdbe588d6fc61ecb09e3b51847fb7c"
+        },
+        "i14": {
+          "label": "Build prototype and evaluate",
+          "status": "assigned",
+          "href": "https://github.com/rust-lang/chalk/issues/351"
+        }
+      }
+    },
+    "n03": {
+      "type": "list",
+      "width": 350,
+      "x": 15,
+      "y": 570,
+      "title": "Align rustc predicates with chalk predicates",
+      "children": {
+        "i15": {
+          "label": "isolate Binder into a Forall goal",
+          "status": "unassigned"
+        },
+        "i16": {
+          "label": "introduce Implication",
+          "status": "unassigned"
+        },
+        "i17": {
+          "label": "introduce Forall goals with types",
+          "status": "unassigned"
+        }
+      }
+    },
+    "n04": {
+      "type": "list",
+      "width": 250,
+      "x": 450,
+      "y": 630,
+      "title": "Deploy GATs in Rust nightly"
+    },
+    "n05": {
+      "type": "list",
+      "width": 300,
+      "x": 450,
+      "y": 230,
+      "title": "Extend chalk to support constants",
+      "children": {
+        "i18": {
+          "label": "introduce constant 'kind', alongside types and lifetimes",
+          "status": "blocked"
+        }
+      }
+    },
+    "n06": {
+      "type": "list",
+      "width": 330,
+      "x": 840,
+      "y": 150,
+      "title": "Integrate chalk-solve into rustc",
+      "children": {
+        "i19": {
+          "label": "remove old chalk support",
+          "status": "complete",
+          "href": "https://github.com/rust-lang/rust/pull/69247"
+        },
+        "i20": {
+          "label": "exploratory integration to better uncover requirements",
+          "status": "assigned",
+          "href": "https://github.com/rust-lang/rust/pull/69406"
+        },
+        "i21": {
+          "label": "map rustc types to chalk types",
+          "status": "blocked"
+        },
+        "i22": {
+          "label": "map rustc predicates to chalk goals, clauses",
+          "status": "blocked"
+        },
+        "i23": {
+          "label": "implement RustIrDatabase in trait",
+          "status": "blocked"
+        }
+      }
+    },
+    "n07": {
+      "type": "list",
+      "width": 330,
+      "x": 840,
+      "y": 390,
+      "title": "Integrate with rust-analyzer",
+      "children": {
+        "i24": {
+          "label": "Ensure that we never need to ask for impls of unknown types",
+          "status": "unassigned"
+        },
+        "i25": {
+          "label": "Deal with performance problems",
+          "status": "blocked"
+        },
+        "i26": {
+          "label": "Deal with memory usage",
+          "status": "blocked"
+        }
+      }
+    },
+    "n08": {
+      "type": "list",
+      "width": 300,
+      "x": 450,
+      "y": 555,
+      "title": "Separate syntactic equality from semantic equality"
+    },
+    "n09": {
+      "type": "list",
+      "width": 300,
+      "x": 450,
+      "y": 455,
+      "title": "Model `impl Trait`",
+      "children": {
+        "i27": {
+          "label": "Preliminary model for opaque types where hidden types are known",
+          "status": "assigned"
+        }
+      }
+    },
+    "n10": {
+      "type": "list",
+      "width": 300,
+      "x": 450,
+      "y": 45,
+      "title": "Extend chalk-solve with knowledge of builtin-traits",
+      "children": {
+        "i28": {
+          "label": "support the `Sized` trait",
+          "status": "blocked",
+          "href": "https://github.com/rust-lang/chalk/issues/261"
+        },
+        "i29": {
+          "label": "support the `Clone` trait",
+          "status": "blocked"
+        },
+        "i30": {
+          "label": "support the `Copy` trait",
+          "status": "blocked"
+        },
+        "i31": {
+          "label": "support the `Unsized` trait",
+          "status": "blocked"
+        }
+      }
+    },
+    "n11": {
+      "type": "list",
+      "width": 300,
+      "x": 450,
+      "y": 328,
+      "title": "Extend chalk-solve with knowledge of fn traits and closures",
+      "children": {
+        "i32": {
+          "label": "add closure and fn def types",
+          "status": "blocked"
+        },
+        "i33": {
+          "label": "support the `Fn` trait",
+          "status": "blocked"
+        }
+      }
+    },
+    "n12": {
+      "type": "list",
+      "width": 200,
+      "x": 1250,
+      "y": 210,
+      "title": "Explore proposed language features",
+      "children": {
+        "i34": {
+          "label": "Implied bounds",
+          "status": "blocked"
+        },
+        "i35": {
+          "label": "Specialization",
+          "status": "blocked",
+          "href": "https://github.com/rust-lang/chalk/issues/9"
+        }
+      }
+    },
+    "n13": {
+      "type": "list",
+      "width": 200,
+      "x": 1250,
+      "y": 350,
+      "title": "Chalk usable as a standalone library for traits solving"
+    },
+    "n14": {
+      "type": "list",
+      "width": 330,
+      "x": 840,
+      "y": 560,
+      "title": "Improve ability to debug chalk from within rustc or rust-analyzer",
+      "children": {
+        "i36": {
+          "label": "Integrate tracing library",
+          "status": "assigned",
+          "href": "https://github.com/rust-lang/chalk/issues/337"
+        },
+        "i37": {
+          "label": "Extract standalone examples automatically",
+          "status": "unassigned"
+        }
+      }
+    }
+  },
+  "connections": {
+    "c01": {
+      "from": "n03",
+      "fromSide": "east",
+      "to": "n04",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c02": {
+      "from": "n01",
+      "fromSide": "east",
+      "to": "n06",
+      "toSide": "north",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": 0, "y": -118, "relative": "to"},
+        {"x": 0, "y": -15, "relative": "to"}
+      ]
+    },
+    "c03": {
+      "from": "n05",
+      "fromSide": "east",
+      "to": "n06",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c04": {
+      "from": "n10",
+      "fromSide": "east",
+      "to": "n06",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c05": {
+      "from": "i08",
+      "fromSide": "east",
+      "to": "n08",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c06": {
+      "from": "i11",
+      "fromSide": "east",
+      "to": "n08",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c07": {
+      "from": "n08",
+      "fromSide": "east",
+      "to": "i25",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c08": {
+      "from": "n09",
+      "fromSide": "east",
+      "to": "n07",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c09": {
+      "from": "n06",
+      "fromSide": "east",
+      "to": "n12",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c10": {
+      "from": "n07",
+      "fromSide": "east",
+      "to": "n12",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c11": {
+      "from": "n06",
+      "fromSide": "east",
+      "to": "n13",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c12": {
+      "from": "n07",
+      "fromSide": "east",
+      "to": "n13",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c13": {
+      "from": "n11",
+      "fromSide": "east",
+      "to": "n06",
+      "toSide": "west",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": -15, "y": 0, "relative": "to"}
+      ]
+    },
+    "c14": {
+      "from": "n14",
+      "fromSide": "east",
+      "to": "n13",
+      "toSide": "south",
+      "points": [
+        {"x": 15, "y": 0, "relative": "from"},
+        {"x": 0, "y": 15, "relative": "to"}
+      ]
+    }
+  }
+}

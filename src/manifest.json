@@ -12,9 +12,9 @@
       "type": "image/png"
     },
     {
-      "src": "/fav/android-chrome-512x512.png",
+      "src": "/fav/android-chrome-512x512.webp",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/webp"
     }
   ]
 }

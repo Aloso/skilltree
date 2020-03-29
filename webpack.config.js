@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
   const cssLoader = {
     loader: 'css-loader',
     options: {
-      modules: true,
+      modules: false,
       sourceMap: true,
       importLoaders: 1,
     }
@@ -37,6 +37,7 @@ module.exports = (env, argv) => {
 
     output: {
       filename: '[name].bundle.js',
+      chunkFilename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
 

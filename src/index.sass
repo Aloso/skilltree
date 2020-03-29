@@ -6,6 +6,76 @@
 
 html, body
   height: 100%
+  margin: 0
 
 body
   font-family: Roboto, 'Segoe UI', 'Noto Sans', -apple-system, sans-serif
+  font-size: 16px
+
+#app
+  position: absolute
+  top: 0
+  left: 0
+
+#canvas
+  position: absolute
+  top: 0
+  left: 0
+
+.node
+  position: absolute
+  box-sizing: border-box
+  background-color: white
+  border-radius: 4px
+  box-shadow: 0 1px 5px rgba(#000, 0.25)
+  font-size: 97%
+  overflow: hidden
+
+  .node-title
+    padding: 7px 10px
+    text-align: center
+    font-size: 106%
+
+  .child
+    display: flex
+    align-items: center
+    background-color: #f7f7f7
+    color: #222
+    border-top: 1px solid #ddd
+
+    &.blocked
+      color: #777777
+
+    &.complete .child-inner
+      text-decoration: line-through
+      text-decoration-color: rgba(black, 0.5)
+      color: #222
+
+    .child-icon
+      width: 30px
+      min-width: 30px
+      text-align: center
+      user-select: none
+      cursor: default
+
+    .child-inner
+      flex-grow: 1
+      padding: 5px 10px 5px 2px
+      text-decoration: none
+
+    a.child-inner
+      color: #1265d1
+
+      &:visited
+        color: #503bd1
+
+    &.blocked > a.child-inner
+        color: inherit
+
+    a.child-inner:hover
+      text-decoration: underline
+
+  &.complete .child-inner:hover
+    text-decoration: underline
+
+
