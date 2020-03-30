@@ -22,6 +22,52 @@ body
   top: 0
   left: 0
 
+#edit
+  position: fixed
+  box-sizing: border-box
+  top: 0
+  left: 50%
+  width: 50px
+  margin: 0 0 0 -25px
+  padding: 5px
+  font-family: inherit
+  font-size: 15px
+  letter-spacing: 0.02rem
+  line-height: 16px
+  border: 1px solid #6cc6ff
+  border-top-width: 0
+  border-radius: 0 0 5px 5px
+  background-color: #ace7ff
+  color: black
+
+.overlay
+  opacity: 0
+  position: absolute
+  background-color: white
+  border-radius: 3px
+  box-shadow: 0 1px 4px rgba(#000, 0.3)
+  z-index: 0
+  left: 100%
+  width: 25px
+  height: 75px
+  margin: -7px 0 0 0
+
+  .node .node-title:hover &
+    opacity: 1
+    transition: opacity 0.2s ease-in
+    transition-delay: 0.2s
+
+  button
+    padding: 0
+    margin: 0
+    width: 100%
+    display: block
+    border: none
+    text-align: center
+    background-color: transparent
+    height: 25px
+    line-height: 25px
+
 .node
   position: absolute
   box-sizing: border-box
@@ -32,6 +78,7 @@ body
   overflow: hidden
 
   .node-title
+    position: relative
     padding: 7px 10px
     text-align: center
     font-size: 106%
@@ -58,9 +105,25 @@ body
       user-select: none
       cursor: default
 
+      body.edit &:hover
+        font-size: 0
+
+        &::before
+          display: block
+          content: "···"
+          font-weight: bold
+          color: #444
+          letter-spacing: -0.04em
+          cursor: pointer
+          font-size: 16px
+          line-height: 20px
+          transform: scale(1.4)
+
     .child-inner
       flex-grow: 1
       padding: 5px 10px 5px 2px
+      line-height: 18px
+      min-height: 18px
       text-decoration: none
 
     a.child-inner
@@ -78,4 +141,34 @@ body
   &.complete .child-inner:hover
     text-decoration: underline
 
+  .edit-status
+    padding: 4px 8px
 
+    input
+      margin: 2px 0 -2px 0
+      padding: 3px
+      width: calc(100% - 47px)
+      border: 1px solid #ddd
+      border-radius: 3px
+      background-color: white
+      font-size: 90%
+
+    button
+      margin: 0 3px 0 0
+      padding: 3px
+      border: 1px solid #ddd
+      border-radius: 3px
+      background-color: white
+
+      &:hover
+        border-color: #4c80ff
+
+  .blocked + .edit-status .blocked,
+  .unassigned + .edit-status .unassigned,
+  .assigned + .edit-status .assigned,
+  .complete + .edit-status .complete
+    border-color: blue
+    box-shadow: 0 1px 4px rgba(blue, 0.5)
+
+.edit .node:hover
+  overflow: visible

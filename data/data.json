@@ -3,7 +3,7 @@
     "width": 1470,
     "height": 710
   },
-  "nodes": {
+  "groups": {
     "n01": {
       "type": "list",
       "width": 350,
@@ -293,8 +293,16 @@
       "to": "n04",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c02": {
@@ -303,9 +311,21 @@
       "to": "n06",
       "toSide": "north",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": 0, "y": -118, "relative": "to"},
-        {"x": 0, "y": -15, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": 0,
+          "y": -118,
+          "relative": "to"
+        },
+        {
+          "x": 0,
+          "y": -15,
+          "relative": "to"
+        }
       ]
     },
     "c03": {
@@ -314,8 +334,16 @@
       "to": "n06",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c04": {
@@ -324,8 +352,16 @@
       "to": "n06",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c05": {
@@ -334,8 +370,16 @@
       "to": "n08",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c06": {
@@ -344,8 +388,16 @@
       "to": "n08",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c07": {
@@ -354,8 +406,16 @@
       "to": "i25",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c08": {
@@ -364,8 +424,16 @@
       "to": "n07",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c09": {
@@ -374,8 +442,16 @@
       "to": "n12",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c10": {
@@ -384,8 +460,16 @@
       "to": "n12",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c11": {
@@ -394,8 +478,16 @@
       "to": "n13",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c12": {
@@ -404,8 +496,16 @@
       "to": "n13",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c13": {
@@ -414,8 +514,16 @@
       "to": "n06",
       "toSide": "west",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": -15, "y": 0, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": -15,
+          "y": 0,
+          "relative": "to"
+        }
       ]
     },
     "c14": {
@@ -424,8 +532,16 @@
       "to": "n13",
       "toSide": "south",
       "points": [
-        {"x": 15, "y": 0, "relative": "from"},
-        {"x": 0, "y": 15, "relative": "to"}
+        {
+          "x": 15,
+          "y": 0,
+          "relative": "from"
+        },
+        {
+          "x": 0,
+          "y": 15,
+          "relative": "to"
+        }
       ]
     }
   }

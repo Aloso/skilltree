@@ -1,17 +1,17 @@
 import json from '../data/data.json'
 
-export interface Node {
+export interface Group {
   type: 'list'
   width: number
   x: number
   y: number
   title: string
   children?: {
-    [id: string]: NodeChild }
+    [id: string]: GroupChild }
   requires?: string[]
 }
 
-export interface NodeChild {
+export interface GroupChild {
   label: string
   status: Status
   href?: string
@@ -49,8 +49,8 @@ export interface JsonData {
   canvas: {
     width: number
     height: number }
-  nodes: {
-    [id: string]: Node }
+  groups: {
+    [id: string]: Group }
   connections: {
     [id: string]: Connection }
 }

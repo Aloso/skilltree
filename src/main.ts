@@ -1,13 +1,15 @@
 import { byId, div, icon, makeNode } from './util'
-import { getData, Node, NodeChild, Side } from './data'
+import { getData, Group, GroupChild, Side } from './data'
 import { Point, Size } from './size'
+import { editableChild, editableGroup, editChildStatus } from './edit'
 
-const data = getData()
+export const data = getData()
 
 const app = byId('app', HTMLElement)
 const canvas = byId('canvas', HTMLCanvasElement)
 let dpr = devicePixelRatio
 
+const items: { [key: string]: HTMLElement } = {}
 let idCache: { [id: string]: Size } = {};
 
 ((): void => {
@@ -22,36 +24,64 @@ let idCache: { [id: string]: Size } = {};
   window.addEventListener('resize', () => {
     if (devicePixelRatio !== dpr) {
       dpr = devicePixelRatio
-      canvas.width = width * dpr
-      canvas.height = height * dpr
-      repaint(true)
+      canvas.width = data.canvas.width * dpr
+      canvas.height = data.canvas.height * dpr
+      paintCanvas(true)
     }
   })
 })()
 
+export function deleteNode(id: string, group: Group): void {
+  delete items[id]
+  delete data.groups[id]
+  delete idCache[id]
+
+  if (group.children != null) {
+    for (const childId in group.children) if (group.children.hasOwnProperty(childId)) {
+      delete items[childId]
+      delete idCache[childId]
+    }
+  }
+
+  for (const connId in data.connections) if (data.connections.hasOwnProperty(connId)) {
+    const conn = data.connections[connId]
+
+    if (conn.from === id || conn.to === id) {
+      delete data.connections[connId]
+    }
+  }
+
+  updateSizes()
+  resize(false)
+  paintCanvas()
+}
+
 function configureApp(): void {
   app.innerHTML = ''
   idCache = {}
-  const items: { [key: string]: HTMLElement } = {}
 
   const frag = document.createDocumentFragment()
 
-  for (const nodeId in data.nodes) if (data.nodes.hasOwnProperty(nodeId)) {
-    const node: Node = data.nodes[nodeId]
+  for (const groupId in data.groups) if (data.groups.hasOwnProperty(groupId)) {
+    const group: Group = data.groups[groupId]
     const el = document.createElement('div')
     el.className = 'node'
-    el.style.left = node.x + 'px'
-    el.style.top = node.y + 'px'
-    el.style.width = node.width + 'px'
+    el.style.left = group.x + 'px'
+    el.style.top = group.y + 'px'
+    el.style.width = group.width + 'px'
 
-    const title = div('node-title', node.title)
+    const title = div('node-title', group.title)
+    editableGroup(groupId, group, title)
     el.append(title)
 
-    if (node.children != null) {
-      for (const childId in node.children) if (node.children.hasOwnProperty(childId)) {
-        const child: NodeChild = node.children[childId]
+    if (group.children != null) {
+      for (const childId in group.children) if (group.children.hasOwnProperty(childId)) {
+        const child: GroupChild = group.children[childId]
         const iel = div(`child ${child.status}`, '')
-        iel.append(makeNode('div', 'child-icon', icon(child.status), { title: child.status }))
+
+        const iconEl = makeNode('div', 'child-icon', icon(child.status), { title: child.status })
+        iconEl.addEventListener('click', () => editChildStatus(child, iel))
+        iel.append(iconEl)
 
         if (child.href == null) {
           iel.append(div('child-inner', child.label))
@@ -60,10 +90,11 @@ function configureApp(): void {
         }
         items[childId] = iel
 
+        editableChild(child, iel.lastElementChild as HTMLElement)
         el.append(iel)
       }
     }
-    items[nodeId] = el
+    items[groupId] = el
 
     frag.append(el)
   }
@@ -71,18 +102,52 @@ function configureApp(): void {
   app.append(frag)
 
   setTimeout(() => {
-    const sx = window.scrollX
-    const sy = window.scrollY
-
-    for (const itemId in items) if (items.hasOwnProperty(itemId)) {
-      idCache[itemId] = relativeRect(items[itemId]).shift(sx, sy)
-    }
-    repaint()
+    updateSizes()
+    paintCanvas()
   })
 }
 configureApp()
 
-function repaint(isCanvasCleared = false): void {
+export function repaint(): void {
+  updateSizes()
+  paintCanvas()
+}
+
+export function resize(paint = true): void {
+  let mx = 0
+  let my = 0
+
+  for (const id in idCache) if (idCache.hasOwnProperty(id)) {
+    const c = idCache[id]
+    mx = Math.max(mx, c.width + c.x)
+    my = Math.max(my, c.height + c.y)
+  }
+  mx += 15
+  my += 15
+
+  if (mx !== data.canvas.width || my !== data.canvas.height) {
+    data.canvas.width = mx
+    data.canvas.height = my
+
+    canvas.width = data.canvas.width * dpr
+    canvas.height = data.canvas.height * dpr
+    canvas.style.width = app.style.width = data.canvas.width + 'px'
+    canvas.style.height = app.style.height = data.canvas.height + 'px'
+
+    if (paint) paintCanvas(true)
+  }
+}
+
+function updateSizes(): void {
+  const sx = window.scrollX
+  const sy = window.scrollY
+
+  for (const itemId in items) if (items.hasOwnProperty(itemId)) {
+    idCache[itemId] = relativeRect(items[itemId]).shift(sx, sy)
+  }
+}
+
+function paintCanvas(isCanvasCleared = false): void {
   if (!isCanvasCleared) {
     // noinspection SillyAssignmentJS
     canvas.width = canvas.width
@@ -100,8 +165,6 @@ function repaint(isCanvasCleared = false): void {
     const from = idCache[conn.from].sideCenter(conn.fromSide)
     const to = idCache[conn.to].sideCenter(conn.toSide)
 
-    console.log(from, to)
-
     ctx.moveTo(from.x * dpr, from.y * dpr)
     if (conn.points != null) {
       for (const point of conn.points) {
@@ -112,8 +175,6 @@ function repaint(isCanvasCleared = false): void {
         } else if (point.relative === 'to') {
           p = { x: to.x + point.x, y: to.y + point.y }
         }
-
-        console.log(p)
 
         ctx.lineTo(p.x * dpr, p.y * dpr)
       }
