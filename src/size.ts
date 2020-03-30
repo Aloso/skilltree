@@ -44,3 +44,16 @@ export class Size {
       this.width, this.height, this.outerHeight)
   }
 }
+
+export function relativeRect(elem: HTMLElement): Size {
+  const rect = elem.getBoundingClientRect()
+
+  if (elem.classList.contains('node')) {
+    const inner = elem.querySelector('.node-title')
+    return inner == null
+      ? Size.from(rect)
+      : Size.from(inner.getBoundingClientRect(), rect.height)
+  } else {
+    return Size.from(rect)
+  }
+}

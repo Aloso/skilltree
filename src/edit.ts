@@ -1,69 +1,32 @@
 import { Group, GroupChild, Status } from './data'
 import { button, byId, div, icon, icons, makeNode, textInput } from './util'
-import { data, deleteNode, repaint, resize } from './main'
+import { addChild, repaint, resize } from './main'
+import { app } from './app'
 
-let isEditing = false
+export const isEditing = location.search === '?edit'
 
-const editButton = byId('edit', HTMLButtonElement)
-editButton.addEventListener('click', clickEdit)
+const saveButton = byId('save', HTMLButtonElement)
+saveButton.addEventListener('click', clickSave)
 
 if (module.hot) module.hot.addDisposeHandler(() => {
-  editButton.removeEventListener('click', clickEdit)
-  editButton.innerText = 'edit'
+  saveButton.removeEventListener('click', clickSave)
   document.body.classList.remove('edit')
 })
 
-export function clickEdit(): void {
-  if (!isEditing) {
-    if (confirm('After editing the skill tree, you need to download the generated JSON file ' +
-      'and rebuild the website with it.\n\nDo you want to proceed?')) {
-      makeEditable()
-    }
-  } else {
-    console.log(JSON.stringify(data, null, 2))
-    alert('Copy the string that was printed to the console and insert it into the `data/data.json` file!')
-  }
+if (isEditing) {
+  document.body.classList.add('edit')
 }
 
-function makeEditable(): void {
-  if (!isEditing) {
-    isEditing = true
-    editButton.innerText = 'save'
-    document.body.classList.add('edit')
-    makeNodesEditable()
-  }
+export function clickSave(): void {
+  console.log(app.getData())
+  alert('Copy the string that was printed to the console and insert it into the `data/data.json` file!')
 }
-
-const editables: { elem: HTMLElement; oninput(): void }[] = []
-const groups: { id: string; group: Group; title: HTMLElement }[] = []
 
 export function editableGroup(id: string, group: Group, title: HTMLElement): void {
-  editables.push({
-    elem: title,
-    oninput(): void {
-      group.title = title.innerText.trim()
-    },
-  })
-  groups.push({ id, group, title })
-}
+  if (isEditing) {
+    title.contentEditable = 'true'
+    title.addEventListener('input', () => group.title = title.innerText.trim())
 
-export function editableChild(child: GroupChild, label: HTMLElement): void {
-  editables.push({
-    elem: label,
-    oninput(): void {
-      child.label = label.innerText.trim()
-    },
-  })
-}
-
-function makeNodesEditable(): void {
-  editables.forEach((e) => {
-    e.elem.contentEditable = 'true'
-    e.elem.addEventListener('input', () => e.oninput())
-  })
-  editables.length = 0
-
-  groups.forEach((n) => {
     const overlay = makeNode('div', 'overlay', '', { contenteditable: 'false' })
 
     const moveButton = makeNode('button', 'move-btn', '✖')
@@ -75,9 +38,9 @@ function makeNodesEditable(): void {
     addButton.title = 'add task'
 
     moveButton.addEventListener('mousedown', (e) => {
-      if (n.title.parentElement != null) {
-        dragged = n.title.parentElement
-        draggedNode = n.group
+      if (title.parentElement != null) {
+        dragged = title.parentElement
+        draggedNode = group
         const rect = dragged.getBoundingClientRect()
         dragOffsetX = e.clientX - rect.left
         dragOffsetY = e.clientY - rect.top
@@ -86,15 +49,32 @@ function makeNodesEditable(): void {
 
     deleteButton.addEventListener('click', () => {
       if (confirm('Do you want to delete this group?')) {
-        n.title.parentElement?.remove()
-        deleteNode(n.id, n.group)
+        title.parentElement?.remove()
+        app.deleteGroup(id)
       }
     })
 
+    addButton.addEventListener('click', () => {
+      const id = addChild(group, title.parentElement!!)
+      const element = app.getElem(id)
+      editableChild(group.children!![id], element)
+      repaint()
+      editChildStatus(group.children!![id], element)
+      setTimeout(() => {
+        (element.lastElementChild as HTMLElement).focus()
+      })
+    })
+
     overlay.append(moveButton, deleteButton, addButton)
-    n.title.prepend(overlay)
-  })
-  groups.length = 0
+    title.prepend(overlay)
+  }
+}
+
+export function editableChild(child: GroupChild, label: HTMLElement): void {
+  if (isEditing) {
+    label.contentEditable = 'true'
+    label.addEventListener('input', () => child.label = label.innerText.trim())
+  }
 }
 
 let dragged: HTMLElement | null = null
@@ -160,14 +140,12 @@ export function editChildStatus(child: GroupChild, elem: HTMLElement): void {
           elem.lastElementChild?.replaceWith(childInner)
 
           editableChild(child, childInner)
-          makeNodesEditable()
         } else if (v !== '' && child.href == null) {
           child.href = v
           const childInner = makeNode('a', 'child-inner', child.label, { href: v })
           elem.lastElementChild?.replaceWith(childInner)
 
           editableChild(child, childInner)
-          makeNodesEditable()
         } else {
           child.href = v
           elem.lastElementChild?.setAttribute('href', v)
