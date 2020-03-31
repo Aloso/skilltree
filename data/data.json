@@ -10,62 +10,74 @@
       "x": 15,
       "y": 15,
       "title": "Map chalk types to rustc types",
-      "children": {
-        "i01": {
+      "children": [
+        {
+          "id": "i01",
           "label": "Rename Projection to Alias",
           "status": "complete"
         },
-        "i02": {
+        {
+          "id": "i02",
           "label": "Make ty intern method take &self",
           "status": "complete",
           "href": "https://github.com/rust-lang/chalk/issues/328"
         },
-        "i03": {
+        {
+          "id": "i03",
           "label": "Make ty data methods take &self",
           "status": "assigned",
           "href": "https://github.com/rust-lang/chalk/issues/339"
         },
-        "i04": {
+        {
+          "id": "i04",
           "label": "Make other intern method take &self",
           "status": "complete",
           "href": "https://github.com/rust-lang-nursery/chalk/issues/340"
         },
-        "i05": {
+        {
+          "id": "i05",
           "label": "Make other data methods take &self",
           "status": "assigned",
           "href": "https://github.com/rust-lang/chalk/issues/341"
         },
-        "i06": {
+        {
+          "id": "i06",
           "label": "Align placeholders and ty::Param",
           "status": "blocked"
         },
-        "i07": {
+        {
+          "id": "i07",
           "label": "Move Identifier to TypeFamily",
           "status": "complete"
         },
-        "i08": {
+        {
+          "id": "i08",
           "label": "Adapt rustc's debruijn index model",
           "status": "assigned",
           "href": "https://github.com/rust-lang/chalk/issues/334"
         },
-        "i09": {
+        {
+          "id": "i09",
           "label": "Adapt rustc's representation of regions",
           "status": "blocked"
         },
-        "i10": {
+        {
+          "id": "i10",
           "label": "Remove all vectors, boxes",
           "status": "unassigned"
         },
-        "i11": {
+        {
+          "id": "i11",
           "label": "Introduce a `Visit` trait",
           "status": "unassigned",
           "href": "https://github.com/rust-lang/chalk/issues/333"
         },
-        "i12": {
+        {
+          "id": "i12",
           "label": "Add and integrate flags into types and elsewhere",
           "status": "unassigned"
         }
-      }
+      ]
     },
     "n02": {
       "type": "list",
@@ -73,18 +85,20 @@
       "x": 15,
       "y": 450,
       "title": "Experiment with a recursive chalk solver",
-      "children": {
-        "i13": {
+      "children": [
+        {
+          "id": "i13",
           "label": "Write-up the idea that Niko had",
           "status": "complete",
           "href": "https://gist.github.com/nikomatsakis/bfbdbe588d6fc61ecb09e3b51847fb7c"
         },
-        "i14": {
+        {
+          "id": "i14",
           "label": "Build prototype and evaluate",
           "status": "assigned",
           "href": "https://github.com/rust-lang/chalk/issues/351"
         }
-      }
+      ]
     },
     "n03": {
       "type": "list",
@@ -92,20 +106,23 @@
       "x": 15,
       "y": 570,
       "title": "Align rustc predicates with chalk predicates",
-      "children": {
-        "i15": {
+      "children": [
+        {
+          "id": "i15",
           "label": "isolate Binder into a Forall goal",
           "status": "unassigned"
         },
-        "i16": {
+        {
+          "id": "i16",
           "label": "introduce Implication",
           "status": "unassigned"
         },
-        "i17": {
+        {
+          "id": "i17",
           "label": "introduce Forall goals with types",
           "status": "unassigned"
         }
-      }
+      ]
     },
     "n04": {
       "type": "list",
@@ -120,12 +137,13 @@
       "x": 450,
       "y": 230,
       "title": "Extend chalk to support constants",
-      "children": {
-        "i18": {
+      "children": [
+        {
+          "id": "i18",
           "label": "introduce constant 'kind', alongside types and lifetimes",
           "status": "blocked"
         }
-      }
+      ]
     },
     "n06": {
       "type": "list",
@@ -133,30 +151,35 @@
       "x": 840,
       "y": 150,
       "title": "Integrate chalk-solve into rustc",
-      "children": {
-        "i19": {
+      "children": [
+        {
+          "id": "i19",
           "label": "remove old chalk support",
           "status": "complete",
           "href": "https://github.com/rust-lang/rust/pull/69247"
         },
-        "i20": {
+        {
+          "id": "i20",
           "label": "exploratory integration to better uncover requirements",
           "status": "assigned",
           "href": "https://github.com/rust-lang/rust/pull/69406"
         },
-        "i21": {
+        {
+          "id": "i21",
           "label": "map rustc types to chalk types",
           "status": "blocked"
         },
-        "i22": {
+        {
+          "id": "i22",
           "label": "map rustc predicates to chalk goals, clauses",
           "status": "blocked"
         },
-        "i23": {
+        {
+          "id": "i23",
           "label": "implement RustIrDatabase in trait",
           "status": "blocked"
         }
-      }
+      ]
     },
     "n07": {
       "type": "list",
@@ -164,20 +187,23 @@
       "x": 840,
       "y": 390,
       "title": "Integrate with rust-analyzer",
-      "children": {
-        "i24": {
+      "children": [
+        {
+          "id": "i24",
           "label": "Ensure that we never need to ask for impls of unknown types",
           "status": "unassigned"
         },
-        "i25": {
+        {
+          "id": "i25",
           "label": "Deal with performance problems",
           "status": "blocked"
         },
-        "i26": {
+        {
+          "id": "i26",
           "label": "Deal with memory usage",
           "status": "blocked"
         }
-      }
+      ]
     },
     "n08": {
       "type": "list",
@@ -192,12 +218,13 @@
       "x": 450,
       "y": 455,
       "title": "Model `impl Trait`",
-      "children": {
-        "i27": {
+      "children": [
+        {
+          "id": "i27",
           "label": "Preliminary model for opaque types where hidden types are known",
           "status": "assigned"
         }
-      }
+      ]
     },
     "n10": {
       "type": "list",
@@ -205,25 +232,29 @@
       "x": 450,
       "y": 45,
       "title": "Extend chalk-solve with knowledge of builtin-traits",
-      "children": {
-        "i28": {
+      "children": [
+        {
+          "id": "i27",
           "label": "support the `Sized` trait",
           "status": "blocked",
           "href": "https://github.com/rust-lang/chalk/issues/261"
         },
-        "i29": {
+        {
+          "id": "i28",
           "label": "support the `Clone` trait",
           "status": "blocked"
         },
-        "i30": {
+        {
+          "id": "i29",
           "label": "support the `Copy` trait",
           "status": "blocked"
         },
-        "i31": {
+        {
+          "id": "i30",
           "label": "support the `Unsized` trait",
           "status": "blocked"
         }
-      }
+      ]
     },
     "n11": {
       "type": "list",
@@ -231,16 +262,18 @@
       "x": 450,
       "y": 328,
       "title": "Extend chalk-solve with knowledge of fn traits and closures",
-      "children": {
-        "i32": {
+      "children": [
+        {
+          "id": "i31",
           "label": "add closure and fn def types",
           "status": "blocked"
         },
-        "i33": {
+        {
+          "id": "i32",
           "label": "support the `Fn` trait",
           "status": "blocked"
         }
-      }
+      ]
     },
     "n12": {
       "type": "list",
@@ -248,17 +281,19 @@
       "x": 1250,
       "y": 210,
       "title": "Explore proposed language features",
-      "children": {
-        "i34": {
+      "children": [
+        {
+          "id": "i33",
           "label": "Implied bounds",
           "status": "blocked"
         },
-        "i35": {
+        {
+          "id": "i34",
           "label": "Specialization",
           "status": "blocked",
           "href": "https://github.com/rust-lang/chalk/issues/9"
         }
-      }
+      ]
     },
     "n13": {
       "type": "list",
@@ -273,17 +308,19 @@
       "x": 840,
       "y": 560,
       "title": "Improve ability to debug chalk from within rustc or rust-analyzer",
-      "children": {
-        "i36": {
+      "children": [
+        {
+          "id": "i35",
           "label": "Integrate tracing library",
           "status": "assigned",
           "href": "https://github.com/rust-lang/chalk/issues/337"
         },
-        "i37": {
+        {
+          "id": "i36",
           "label": "Extract standalone examples automatically",
           "status": "unassigned"
         }
-      }
+      ]
     }
   },
   "connections": {

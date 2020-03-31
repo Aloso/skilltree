@@ -1,4 +1,4 @@
-import json from '../data/data.json'
+import json from '../../data/data.json'
 
 export interface Group {
   type: 'list'
@@ -6,17 +6,14 @@ export interface Group {
   x: number
   y: number
   title: string
-  children?: {
-    [id: string]: GroupChild }
-  requires?: string[]
+  children?: GroupChild[]
 }
 
 export interface GroupChild {
+  id: string
   label: string
   status: Status
   href?: string
-  port?: string
-  requires?: string[]
 }
 
 export type Status =

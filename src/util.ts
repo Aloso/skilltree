@@ -1,4 +1,12 @@
-import { Status } from './data'
+import { library, icon, config, IconName } from '@fortawesome/fontawesome-svg-core'
+import { faArrowsAlt } from '@fortawesome/free-solid-svg-icons/faArrowsAlt'
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt'
+import { faLink } from '@fortawesome/free-solid-svg-icons/faLink'
+config.autoReplaceSvg = false
+library.add(faArrowsAlt, faPlus, faTrashAlt, faLink)
+
+import { Status } from './app/data'
 
 export function byId<T extends HTMLElement>(id: string, type: new() => T): T {
   const el = document.getElementById(id)
@@ -10,12 +18,15 @@ export function byId<T extends HTMLElement>(id: string, type: new() => T): T {
 export function makeNode(
   nodeName: string,
   className?: string,
-  content?: string,
+  content?: string | HTMLElement,
   attrs: { [key: string]: string } = {},
 ): HTMLElement {
   const el = document.createElement(nodeName)
   if (className != null) el.className = className
-  if (content != null) el.innerText = content
+  if (content != null) {
+    if (typeof content === 'string') el.innerText = content
+    else el.append(content)
+  }
   for (const k in attrs) if (attrs.hasOwnProperty(k)) {
     el.setAttribute(k, attrs[k])
   }
@@ -29,21 +40,41 @@ export function div(className: string, content: string): HTMLDivElement {
   return el
 }
 
-export function uuid(prefix = ''): string {
-  const d = +new Date()
-  const r = Math.floor(Math.random() * 16777216)
-  return `${prefix}${d.toString(16)}-${r.toString(16)}`
+export function iconNode(
+  nodeName: string,
+  iconName: IconName,
+  className?: string,
+  attrs: { [key: string]: string } = {},
+): HTMLElement {
+  const el = document.createElement(nodeName)
+  if (className != null) el.className = className
+  el.innerHTML = icon({ prefix: 'fas', iconName }).html[0]
+  for (const k in attrs) if (attrs.hasOwnProperty(k)) {
+    el.setAttribute(k, attrs[k])
+  }
+  return el
 }
 
-export const icons = {
+export function uuid(prefix = ''): string {
+  const d = (+new Date() - 1585612800000).toString(16)
+  const r = Math.floor(Math.random() * 4194304).toString(16)
+  return `${prefix}${fill(d, 12)}-${fill(r, 6)}`
+}
+
+function fill(s: string, len: number): string {
+  return '000000000000000000000000000000000000'
+    .slice(0, Math.max(0, len - s.length)) + s
+}
+
+export const emojis = {
   blocked: '⌚',
   unassigned: '🙋',
   assigned: '🛠️',
   complete: '☑️',
 }
 
-export function icon(status: Status): string {
-  return icons[status]
+export function emoji(status: Status): string {
+  return emojis[status]
 }
 
 export function button(content: string, clazz: string, onClick: () => void, title: string | null = clazz): HTMLButtonElement {

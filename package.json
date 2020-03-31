@@ -17,6 +17,8 @@
     "serve": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --mode production"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "core-js": "^3.6.4",
     "normalize.css": "^8.0.1",
     "regenerator-runtime": "^0.13.5"

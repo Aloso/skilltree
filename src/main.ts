@@ -1,11 +1,14 @@
-import { byId, div, icon, makeNode, uuid } from './util'
-import { Group, GroupChild, Side } from './data'
-import { Point } from './size'
-import { editableChild, editableGroup, editChildStatus } from './edit'
-import { app } from './app'
+import { byId } from './util'
+import { Side } from './app/data'
+import { Point } from './app/size'
+import { app } from './app/app'
+import { GroupElem } from './app/groupElem'
 
 const appEl = byId('app', HTMLElement)
 const canvas = byId('canvas', HTMLCanvasElement)
+const saveButton = byId('save', HTMLButtonElement)
+saveButton.addEventListener('click', clickSave)
+
 let dpr = devicePixelRatio
 
 app.canvasSizeChange.on(({ width, height }) => {
@@ -31,68 +34,40 @@ app.dataChange.on(() => {
   paintCanvas()
 })
 
-export function addChild(group: Group, elem: HTMLElement): string {
-  const id = uuid('c')
-  if (group.children == null) group.children = {}
-  group.children[id] = {
-    label: '',
-    status: 'unassigned',
-  }
-  const childElem = createGroupChild(id, group.children[id])
-  elem.append(childElem)
-  return id
+appEl.innerHTML = ''
+app.reset()
+
+const frag = document.createDocumentFragment()
+const groupsElems: GroupElem[] = []
+
+app.eachGroup((groupId, group) => {
+  const groupElem = new GroupElem(groupId, group)
+  groupsElems.push(groupElem)
+  frag.append(groupElem.getNode())
+})
+
+appEl.append(frag)
+for (const groupElem of groupsElems) {
+  groupElem.registerElements()
 }
 
-function createGroupChild(id: string, child: GroupChild): HTMLElement {
-  const elem = div(`child ${child.status}`, '')
+setTimeout(repaint)
 
-  const iconEl = makeNode('div', 'child-icon', icon(child.status), { title: child.status })
-  iconEl.addEventListener('click', () => editChildStatus(child, elem))
-  elem.append(iconEl)
 
-  if (child.href == null) {
-    elem.append(div('child-inner', child.label))
-  } else {
-    elem.append(makeNode('a', 'child-inner', child.label, { href: child.href }))
-  }
-  app.setElem(id, elem)
-  editableChild(child, elem.lastElementChild as HTMLElement)
-  return elem
+
+if (module.hot) module.hot.addDisposeHandler(() => {
+  saveButton.removeEventListener('click', clickSave)
+  document.body.classList.remove('edit')
+})
+
+if (app.isEditing) {
+  document.body.classList.add('edit')
 }
 
-function configureApp(): void {
-  appEl.innerHTML = ''
-  app.reset()
-
-  const frag = document.createDocumentFragment()
-
-  app.eachGroup((groupId, group) => {
-    const el = document.createElement('div')
-    el.className = 'node'
-    el.style.left = group.x + 'px'
-    el.style.top = group.y + 'px'
-    el.style.width = group.width + 'px'
-
-    const title = div('node-title', group.title)
-    editableGroup(groupId, group, title)
-    el.append(title)
-
-    if (group.children != null) {
-      for (const childId in group.children) if (group.children.hasOwnProperty(childId)) {
-        const childElem = createGroupChild(childId, group.children[childId])
-        el.append(childElem)
-      }
-    }
-    app.setElem(groupId, el)
-
-    frag.append(el)
-  })
-
-  appEl.append(frag)
-
-  setTimeout(repaint)
+export function clickSave(): void {
+  console.log(app.getData())
+  alert('Copy the string that was printed to the console and insert it into the `data/data.json` file!')
 }
-configureApp()
 
 export function repaint(): void {
   app.dataChange.emit()

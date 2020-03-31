@@ -1,16 +1,21 @@
 import { Connection, getData, Group } from './data'
 import { relativeRect, Size } from './size'
-import { EventEmitter } from './eventEmitter'
+import { EventEmitter } from '../eventEmitter'
 
 export class App {
   static singleton = new App()
 
+  readonly isEditing = location.search === '?edit'
+
   readonly dataChange = new EventEmitter<void>()
   readonly canvasSizeChange = new EventEmitter<{ width: number; height: number }>()
+  readonly editingChildChange = new EventEmitter<void>()
 
   private readonly data = getData()
-  private elements: { [key: string]: HTMLElement } = {}
-  private sizes: { [key: string]: Size } = {}
+  private elements: { [id: string]: HTMLElement } = {}
+  private sizes: { [id: string]: Size } = {}
+
+  private pEditingChild: HTMLElement | null = null
 
   private constructor() {
     this.canvasSizeChange.emit(this.data.canvas)
@@ -72,31 +77,14 @@ export class App {
     }
   }
 
-  eachElem(callback: (id: string, elem: HTMLElement) => void): void {
-    // eslint-disable-next-line guard-for-in,@typescript-eslint/tslint/config
-    for (const elemId in this.elements) {
-      callback(elemId, this.elements[elemId])
-    }
-  }
+  removeGroup(groupId: string): void {
+    const group = this.data.groups[groupId]
+    delete this.data.groups[groupId]
 
-  deleteGroup(id: string): void {
-    const group = this.data.groups[id]
+    const removedIds = group.children?.map(c => c.id) ?? []
+    removedIds.push(groupId)
 
-    delete this.elements[id]
-    delete this.data.groups[id]
-    delete this.sizes[id]
-
-    if (group.children != null) {
-      for (const childId in group.children) if (group.children.hasOwnProperty(childId)) {
-        delete this.elements[childId]
-        delete this.sizes[childId]
-      }
-    }
-
-    this.eachConnection((connId, conn) => {
-      if (conn.from === id || conn.to === id) this.deleteConnection(connId, false)
-    })
-
+    this.removeIds(removedIds)
     this.dataChange.emit()
   }
 
@@ -109,12 +97,36 @@ export class App {
     return JSON.stringify(this.data, null, 2)
   }
 
-  getElem(id: string): HTMLElement {
-    return this.elements[id]
-  }
-
   setElem(id: string, elem: HTMLElement): void {
     this.elements[id] = elem
+  }
+
+  removeIds(ids: string[]): void {
+    for (const id of ids) {
+      delete this.sizes[id]
+      delete this.elements[id]
+    }
+
+    const sizes = this.sizes
+    this.eachConnection((connId, conn) => {
+      if (sizes[conn.from] == null || sizes[conn.to] == null) {
+        this.deleteConnection(connId, false)
+      }
+    })
+  }
+
+  set editingChild(node: HTMLElement | null) {
+    if (node !== this.pEditingChild) {
+      if (this.pEditingChild != null && this.pEditingChild.parentElement != null) {
+        this.pEditingChild.parentElement.style.zIndex = ''
+      }
+      if (node != null && node.parentElement != null) {
+        node.parentElement.style.zIndex = '2'
+      }
+      this.pEditingChild = node
+
+      this.editingChildChange.emit()
+    }
   }
 }
 

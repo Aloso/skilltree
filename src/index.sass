@@ -56,7 +56,8 @@ body
   height: 75px
   margin: -7px 0 0 0
 
-  .node .node-title:hover &
+  .node .node-title:hover &,
+  .node .node-title:focus-within &
     opacity: 1
     transition: opacity 0.2s ease-in
     transition-delay: 0.2s
@@ -89,7 +90,8 @@ body
 
   .child
     display: flex
-    align-items: center
+    flex-wrap: wrap
+    align-items: stretch
     background-color: #f7f7f7
     color: #222
     border-top: 1px solid #ddd
@@ -103,13 +105,18 @@ body
       color: #222
 
     .child-icon
+      display: inline-flex
+      flex-direction: column
       width: 30px
       min-width: 30px
-      text-align: center
+      justify-content: center
+      align-items: center
       user-select: none
       cursor: default
+      overflow: hidden
 
-      body.edit &:hover
+      body.edit &:hover,
+      body.edit &:focus
         font-size: 0
 
         &::before
@@ -117,13 +124,13 @@ body
           content: "···"
           font-weight: bold
           color: #444
-          letter-spacing: -0.04em
+          letter-spacing: -0.05em
           cursor: pointer
-          font-size: 16px
-          line-height: 20px
-          transform: scale(1.4)
+          font-size: 25px
+          line-height: 22px
 
     .child-inner
+      width: calc(100% - 50px)
       flex-grow: 1
       padding: 5px 10px 5px 2px
       line-height: 18px
@@ -146,12 +153,14 @@ body
     text-decoration: underline
 
   .edit-status
-    padding: 4px 8px
+    padding: 4px 4px
+    flex-grow: 1
+    width: 100%
 
     input
-      margin: 2px 0 -2px 0
+      margin: 3px -3px 0 0
       padding: 3px
-      width: calc(100% - 47px)
+      width: calc(100% - 34px)
       border: 1px solid #ddd
       border-radius: 3px
       background-color: white
@@ -167,12 +176,21 @@ body
       &:hover
         border-color: #4c80ff
 
-  .blocked + .edit-status .blocked,
-  .unassigned + .edit-status .unassigned,
-  .assigned + .edit-status .assigned,
-  .complete + .edit-status .complete
-    border-color: blue
-    box-shadow: 0 1px 4px rgba(blue, 0.5)
+    a.plain
+      display: inline-block
+      vertical-align: middle
+      text-align: center
+      width: 22px
+      margin: 0 3px 0 0
+      color: #3875e2
 
-.edit .node:hover
+  .blocked .edit-status .blocked,
+  .unassigned .edit-status .unassigned,
+  .assigned .edit-status .assigned,
+  .complete .edit-status .complete
+    border-color: #2072ff
+    box-shadow: 0 1px 4px rgba(#2072ff, 0.5)
+
+.edit .node:hover,
+.edit .node:focus-within
   overflow: visible
